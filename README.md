@@ -48,13 +48,11 @@ accelerate launch ./src/main_train.py --hf_model_name google/pix2struct-base --i
 ### PixT3 LControl
 Use the previously pretrained PixT3(SLC) as the initialization model or use the one provided [here](https://storage.googleapis.com/pixt3/models.tar.gz) `h1__20230904_120158`. 
 ```
-# PixT3 LControl
 accelerate launch ./src/main_train.py --hf_model_name ./models/h1__20230904_120158/checkpoints/3/ --image_dir ./data/ToTTo/img/highlighted_039/ --exp_name i1 --lr 0.0001 --epochs 30
 ```
 ### PixT3 OpenE
 Use the previously pretrained PixT3(SLC) as the initialization model or use the one provided [here](https://storage.googleapis.com/pixt3/models.tar.gz) `h1__20230904_120158`.
 ```
-# PixT3 OpenE
 accelerate launch ./src/main_train.py --hf_model_name ./models/h1__20230904_120158/checkpoints/3/ --image_dir ./data/ToTTo/img/no_highlighted_039/ --exp_name i3 --lr 0.0001 --epochs 30
 ```
 
@@ -66,13 +64,13 @@ export PYTHONPATH="$PWD/src"
 ```
 
 ### Flags
-- `--model_to_load_path`: You can use one of the [already trained PixT3 checkpoints](https://storage.googleapis.com/pixt3/models.tar.gz) our you can set the path to your own trained ones. 
+- `--model_to_load_path`: You can use one of the [already trained PixT3 checkpoints](https://storage.googleapis.com/pixt3/models.tar.gz) our you can set the path to any other trained one. 
 - `--image_dir`: For ToTTo use `./data/ToTTo/img/SETTING_DIR/`. For Logic2Text `./data/ToTTo/img/SETTING_DIR/`.
 - `--dataset_dir`: For ToTTo use `./data/ToTTo/`. For Logic2Text `/data/Logic2Text`.
 - `--mode`: For dev set use `"dev"`.. For text set use `"test"`.
 
 ### Examples
-Here are some examples to perform dev-set inference in different settings and datasets:
+Here are some examples to perform inference in different settings and datasets for the dev set:
 
 #### TControl
 ```
@@ -122,8 +120,8 @@ language/totto/totto_eval.sh --prediction_path $PATH_TO_PROJECT/PixT3/out/infere
 language/totto/totto_eval.sh --prediction_path $PATH_TO_PROJECT/PixT3/out/inferences/l2t/f4__20230918_201309_notab_high_00_test/inferred_texts.txt --target_path $PATH_TO_PROJECT/data/Logic2Text/l2t_totto_data/test.jsonl --bleurt_ckpt $PATH_TO_BLEURT/bleurt/bleurt-base-128/
 ```
 
-## Generating the datasets manually
-You can also generate the dataset manually by following these steps:
+## Generating datasets manually
+You can also generate the dataset manually fro their original sources by following these steps:
 ### ToTTo
 Download ToTTo dataset from the [official GitHub repository](https://github.com/google-research-datasets/totto) or using:
 ```
