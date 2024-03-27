@@ -1,0 +1,10 @@
+* {
+    font-family: Arial;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+td:not([class^="highlighted"]) {
+    color: #FFFFFF  ;
+}

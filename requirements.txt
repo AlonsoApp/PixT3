@@ -1,0 +1,29 @@
+pandas==2.0.3
+six==1.16.0
+tqdm==4.65.0
+numpy==1.25.2
+torch==2.0.1
+matplotlib==3.7.2
+imgkit==1.2.3
+lxml==4.9.3 # for totto to hmtl
+transformers==4.31.0
+wikipedia==1.4.0 # for category crawling
+datasets==2.14.3 # for pix2struct demo
+Pillow==10.0.0
+pytictoc==1.5.3
+wandb==0.15.8
+sacrebleu==2.3.1
+evaluate==0.4.0
+accelerate==0.21.0
+#deepspeed==0.9.2
+#
+beautifulsoup4~=4.12.2 # to count rows and columns in tables as html
+seaborn~=0.12.2
+colorcet~=3.0.1 # to print distributions
+# Logic2Text
+treelib==1.6.1
+zss==1.2.0 # to calculate disntance between two trees in cualitative_analysis.py
+statsmodels~=0.14.0 # to calculate fleiss' kappa
+tabulate~=0.9.0 # for logic2text dataset explorer
+peft~=0.6.2 # for lora and quantization (not actually needed)
+jsonlines==4.0.0 # to run Lattice preprocessing
