@@ -1,5 +1,5 @@
 # PixT3
-This repository contains code for [PixT3: Pixel-based Table-To-Text Generation](https://openreview.net/forum?id=d2B35D0eqY)).
+This repository contains code for [PixT3: Pixel-based Table-To-Text Generation](https://openreview.net/forum?id=d2B35D0eqY).
 
 We release PixT3 model checkpoints for the TControl, LControl, and OpenE settings as well as 
 ToTTo, Controlled Logic2Text, and SLC pretraining datasets alongside their corresponding rendered tables
