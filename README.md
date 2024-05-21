@@ -1,5 +1,5 @@
-# PixT3
-This repository contains code for [PixT3: Pixel-based Table-To-Text Generation](https://openreview.net/forum?id=d2B35D0eqY)).
+# PixT3: Pixel-based Table To Text generation
+This repository contains code for [PixT3: Pixel-based Table-To-Text Generation](https://openreview.net/forum?id=LW5J65cYXL)).
 
 We release PixT3 model checkpoints for the TControl, LControl, and OpenE settings as well as 
 ToTTo, Controlled Logic2Text, and SLC pretraining datasets alongside their corresponding rendered tables
@@ -10,7 +10,7 @@ Clone this GitHub repository, install the requirements, and download all [datase
 This project was developed using **Python=3.11**. 
 
 ```
-git clone https://ANONYMOUS_URL/PixT3.git
+git clone https://github.com/AlonsoApp/PixT3.git
 cd PixT3
 pip install -r requirements.txt
 ```
@@ -169,4 +169,18 @@ To generate the images for Synthetic dataset run:
 ```
 export PYTHONPATH="$PWD/src"
 python3 ./src/dataset/totto/preprocessing/image_generation.py slc
+```
+
+## Reference
+If you find this project useful, please cite it using the following format
+
+```
+@inproceedings{
+    alonso2024pixt,
+    title={PixT3: Pixel-based Table-To-Text Generation},
+    author={Iñigo Alonso, Eneko Agirre, Mirella Lapata},
+    booktitle={The 62nd Annual Meeting of the Association for Computational Linguistics},
+    year={2024},
+    url={https://openreview.net/forum?id=LW5J65cYXL}
+}
 ```
