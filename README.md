@@ -1,4 +1,4 @@
-# PixT3: Pixel-based Table To Text generation
+# PixT3: Pixel-based Table-To-Text Generation
 This repository contains code and datasets for the ACL 2024 paper [PixT3: Pixel-based Table-To-Text Generation](https://openreview.net/forum?id=LW5J65cYXL).
 
 We release PixT3 model checkpoints for the TControl, LControl, and OpenE settings as well as 
