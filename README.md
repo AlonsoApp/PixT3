@@ -1,5 +1,5 @@
 # PixT3: Pixel-based Table To Text generation
-This repository contains code for [PixT3: Pixel-based Table-To-Text Generation](https://openreview.net/forum?id=LW5J65cYXL)).
+This repository contains code and datasets for the ACL 2024 paper [PixT3: Pixel-based Table-To-Text Generation](https://openreview.net/forum?id=LW5J65cYXL).
 
 We release PixT3 model checkpoints for the TControl, LControl, and OpenE settings as well as 
 ToTTo, Controlled Logic2Text, and SLC pretraining datasets alongside their corresponding rendered tables
@@ -21,11 +21,11 @@ Download the ready-to-use datasets [here](https://storage.googleapis.com/pixt3/d
 ## Model checkpoints
 Download model checkpoints [here](https://storage.googleapis.com/pixt3/models.tar.gz).
 
-These are the codenames for each model:
-- **PixT3 (TControl):** `f4__20230918_201309`
-- **PixT3 (LControl):** `i1__20230905_134725`
-- **PixT3 (OpenE):** `i3__20230905_134649`
-- **PixT3 (SLC):** `h1__20230904_120158` This is the model pretrained with the Structure Learning Curriculum. It mainly serves as initialization checkpoint for PixT3 (LControl) and PixT3 (OpenE).
+Model names:
+- **PixT3 (TControl):** `pixt3_tcontrol`
+- **PixT3 (LControl):** `pixt3_lcontrol`
+- **PixT3 (OpenE):** `pixt3_opene`
+- **PixT3 (SLC):** `pixt3_slc` This is the model pretrained with the Structure Learning Curriculum. It mainly serves as initialization checkpoint for PixT3 (LControl) and PixT3 (OpenE).
 
 ## Training PixT3
 We use [HuggingFace Accelerate](https://huggingface.co/docs/accelerate/en/index) to run the training process. Although experiments should run equally fine without it, we 
@@ -40,20 +40,20 @@ Pretrain Pix2Struct with our Structure Learning Curriculum. The resulting model 
 accelerate launch ./src/main_train.py --hf_model_name google/pix2struct-base --image_dir ./data/ToTTo/img/warmup_ssl1/ --dataset_variant warmup_ssl1 --exp_name h1 --lr 0.0001 --epochs 30 --batch_size 4 --gradient_accumulation_steps 64 --truncate_train_length True --max_text_length 300
 mv ./out/experiments/h1* ./models/
 ```
-### PixT3 TControl
+### PixT3 (TControl)
 We don't need the SLC pretrained model as the foundational model in TControl as this setting doesn't contain tables.
 ```
 accelerate launch ./src/main_train.py --hf_model_name google/pix2struct-base --image_dir ./data/ToTTo/img/notab_high_00/ --exp_name f4 --lr 0.0001 --epochs 30
 ```
-### PixT3 LControl
-Use the previously pretrained PixT3(SLC) as the initialization model or use the one provided [here](https://storage.googleapis.com/pixt3/models.tar.gz) `h1__20230904_120158`. 
+### PixT3 (LControl)
+Use the previously pretrained PixT3(SLC) as the initialization model or use the one provided [here](https://storage.googleapis.com/pixt3/models.tar.gz) `pixt3_slc`. 
 ```
-accelerate launch ./src/main_train.py --hf_model_name ./models/h1__20230904_120158/checkpoints/3/ --image_dir ./data/ToTTo/img/highlighted_039/ --exp_name i1 --lr 0.0001 --epochs 30
+accelerate launch ./src/main_train.py --hf_model_name ./models/pixt3_slc/checkpoints/3/ --image_dir ./data/ToTTo/img/highlighted_039/ --exp_name i1 --lr 0.0001 --epochs 30
 ```
-### PixT3 OpenE
-Use the previously pretrained PixT3(SLC) as the initialization model or use the one provided [here](https://storage.googleapis.com/pixt3/models.tar.gz) `h1__20230904_120158`.
+### PixT3 (OpenE)
+Use the previously pretrained PixT3(SLC) as the initialization model or use the one provided [here](https://storage.googleapis.com/pixt3/models.tar.gz) `pixt3_slc`.
 ```
-accelerate launch ./src/main_train.py --hf_model_name ./models/h1__20230904_120158/checkpoints/3/ --image_dir ./data/ToTTo/img/no_highlighted_039/ --exp_name i3 --lr 0.0001 --epochs 30
+accelerate launch ./src/main_train.py --hf_model_name ./models/pixt3_slc/checkpoints/3/ --image_dir ./data/ToTTo/img/no_highlighted_039/ --exp_name i3 --lr 0.0001 --epochs 30
 ```
 
 ## Inference PixT3 for evaluation
@@ -67,7 +67,7 @@ export PYTHONPATH="$PWD/src"
 - `--model_to_load_path`: You can use one of the [already trained PixT3 checkpoints](https://storage.googleapis.com/pixt3/models.tar.gz) our you can set the path to any other trained one. 
 - `--image_dir`: For ToTTo use `./data/ToTTo/img/SETTING_DIR/`. For Logic2Text `./data/ToTTo/img/SETTING_DIR/`.
 - `--dataset_dir`: For ToTTo use `./data/ToTTo/`. For Logic2Text `/data/Logic2Text`.
-- `--mode`: For dev set use `"dev"`.. For text set use `"test"`.
+- `--mode`: For dev set use `"dev"`. For text set use `"test"`.
 
 ### Examples
 Here are some examples to perform inference in different settings and datasets for the dev set:
@@ -75,26 +75,26 @@ Here are some examples to perform inference in different settings and datasets f
 #### TControl
 ```
 # ToTTo
-python3 ./src/main_inference.py --model_to_load_path ./models/f4__20230918_201309/checkpoints/23/ --shuffle_dataset False --image_dir ./data/ToTTo/img/notab_high_00/ --eval_batch_size 64 --dataset_dir ./data/ToTTo/ --mode "dev"
+python3 ./src/main_inference.py --model_to_load_path ./models/pixt3_tcontrol/checkpoints/23/ --shuffle_dataset False --image_dir ./data/ToTTo/img/notab_high_00/ --eval_batch_size 64 --dataset_dir ./data/ToTTo/ --mode "dev"
 # Logic2Text
-python3 ./src/main_inference.py --model_to_load_path ./models/f4__20230918_201309/checkpoints/15/ --shuffle_dataset False --image_dir ./data/Logic2Text/img/notab_high_00/ --eval_batch_size 64 --dataset_dir ./data/Logic2Text --dataset_variant l2t_totto_data --mode "dev"
+python3 ./src/main_inference.py --model_to_load_path ./models/pixt3_tcontrol/checkpoints/15/ --shuffle_dataset False --image_dir ./data/Logic2Text/img/notab_high_00/ --eval_batch_size 64 --dataset_dir ./data/Logic2Text --dataset_variant l2t_totto_data --mode "dev"
 ```
 
 #### LControl
 ```
 # ToTTo
-python3 ./src/main_inference.py --model_to_load_path ./models/i1__20230905_134725/checkpoints/28/ --shuffle_dataset False --image_dir ./data/ToTTo/img/highlighted_039/ --eval_batch_size 64 --dataset_dir ./data/ToTTo/ --mode "dev"
+python3 ./src/main_inference.py --model_to_load_path ./models/pixt3_lcontrol/checkpoints/28/ --shuffle_dataset False --image_dir ./data/ToTTo/img/highlighted_039/ --eval_batch_size 64 --dataset_dir ./data/ToTTo/ --mode "dev"
 # Logic2Text
-python3 ./src/main_inference.py --model_to_load_path ./models/i1__20230905_134725/checkpoints/28/ --shuffle_dataset False --image_dir ./data/Logic2Text/img/highlighted_039/ --eval_batch_size 64 --dataset_dir ./data/Logic2Text --dataset_variant l2t_totto_data --mode "dev"
+python3 ./src/main_inference.py --model_to_load_path ./models/pixt3_lcontrol/checkpoints/28/ --shuffle_dataset False --image_dir ./data/Logic2Text/img/highlighted_039/ --eval_batch_size 64 --dataset_dir ./data/Logic2Text --dataset_variant l2t_totto_data --mode "dev"
 
 ```
 
 #### OpenE
 ```
 # ToTTo
-python3 ./src/main_inference.py --model_to_load_path ./models/i3__20230905_134649/checkpoints/29/ --shuffle_dataset False --image_dir ./data/ToTTo/img/no_highlighted_039/ --eval_batch_size 64 --dataset_dir ./data/ToTTo/ --mode "dev"
+python3 ./src/main_inference.py --model_to_load_path ./models/pixt3_opene/checkpoints/29/ --shuffle_dataset False --image_dir ./data/ToTTo/img/no_highlighted_039/ --eval_batch_size 64 --dataset_dir ./data/ToTTo/ --mode "dev"
 # Logic2Text
-python3 ./src/main_inference.py --model_to_load_path ./models/i3__20230905_134649/checkpoints/29/ --shuffle_dataset False --image_dir ./data/Logic2Text/img/no_highlighted_039/ --eval_batch_size 64 --dataset_dir ./data/Logic2Text --dataset_variant l2t_totto_data --mode "dev"
+python3 ./src/main_inference.py --model_to_load_path ./models/pixt3_opene/checkpoints/29/ --shuffle_dataset False --image_dir ./data/Logic2Text/img/no_highlighted_039/ --eval_batch_size 64 --dataset_dir ./data/Logic2Text --dataset_variant l2t_totto_data --mode "dev"
 ```
 
 ## Evaluate PixT3
@@ -111,13 +111,13 @@ cd language_repo
 PATH_TO_PROJECT="PATH_TO_PIXT3_PROJECT"
 PATH_TO_BLEURT="PATH_TO_BLEURT_PROJECT"
 # For ToTTo dev
-language/totto/totto_eval.sh --prediction_path $PATH_TO_PROJECT/PixT3/out/inferences/totto/f4__20230918_201309_notab_high_00_bs/inferred_texts.txt --target_path $PATH_TO_PROJECT/data/ToTTo/totto_data/dev.jsonl --bleurt_ckpt $PATH_TO_BLEURT/bleurt/bleurt-base-128/
+language/totto/totto_eval.sh --prediction_path $PATH_TO_PROJECT/PixT3/out/inferences/totto/pixt3_tcontrol_notab_high_00_bs/inferred_texts.txt --target_path $PATH_TO_PROJECT/data/ToTTo/totto_data/dev.jsonl --bleurt_ckpt $PATH_TO_BLEURT/bleurt/bleurt-base-128/
 # For ToTTo test
 # ToTTo test labels are hidden. To evaluate ToTTo test, inferences must be submitted through the official ToTTo evaluation form
 # For Logic2Text dev
-language/totto/totto_eval.sh --prediction_path $PATH_TO_PROJECT/PixT3/out/inferences/l2t/f4__20230918_201309_notab_high_00_bs/inferred_texts.txt --target_path $PATH_TO_PROJECT/data/Logic2Text/l2t_totto_data/dev.jsonl --bleurt_ckpt $PATH_TO_BLEURT/bleurt/bleurt-base-128/
+language/totto/totto_eval.sh --prediction_path $PATH_TO_PROJECT/PixT3/out/inferences/l2t/pixt3_tcontrol_notab_high_00_bs/inferred_texts.txt --target_path $PATH_TO_PROJECT/data/Logic2Text/l2t_totto_data/dev.jsonl --bleurt_ckpt $PATH_TO_BLEURT/bleurt/bleurt-base-128/
 # For Logic2Text test
-language/totto/totto_eval.sh --prediction_path $PATH_TO_PROJECT/PixT3/out/inferences/l2t/f4__20230918_201309_notab_high_00_test/inferred_texts.txt --target_path $PATH_TO_PROJECT/data/Logic2Text/l2t_totto_data/test.jsonl --bleurt_ckpt $PATH_TO_BLEURT/bleurt/bleurt-base-128/
+language/totto/totto_eval.sh --prediction_path $PATH_TO_PROJECT/PixT3/out/inferences/l2t/pixt3_tcontrol_notab_high_00_test/inferred_texts.txt --target_path $PATH_TO_PROJECT/data/Logic2Text/l2t_totto_data/test.jsonl --bleurt_ckpt $PATH_TO_BLEURT/bleurt/bleurt-base-128/
 ```
 
 ## Generating datasets manually
