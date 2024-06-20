@@ -5,7 +5,7 @@ from typing import Dict
 from math import ceil
 from transformers.optimization import get_cosine_schedule_with_warmup
 
-from model.pix2struct import config, data_loader
+from model.pixt3 import config, data_loader
 from tools.torch_utils import set_seed, create_experiment_folder
 import torch
 from transformers import AutoProcessor, Pix2StructForConditionalGeneration, Adafactor, Pix2StructProcessor

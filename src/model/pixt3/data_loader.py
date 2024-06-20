@@ -121,7 +121,6 @@ class Table2TextCollator:
 
 def get_dataset(args, mode: str, processor: AutoProcessor = None) -> Table2TextDataset:
 	dataset_paths = [os.path.join(args.dataset_dir, variant, FILE_NAMES[variant][mode]) for variant in args.dataset_variant.split(',')]
-	# I know I should not use split="train" but I'm too tired
 	dataset_jsons = [load_dataset("json", data_files=path, split="train") for path in dataset_paths]
 	return Table2TextDataset(dataset_jsons, processor, args.max_patches, args.image_dir, mode)
 

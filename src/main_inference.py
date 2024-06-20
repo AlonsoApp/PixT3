@@ -1,6 +1,6 @@
 from typing import Dict
 
-from model.pix2struct import config, data_loader
+from model.pixt3 import config, data_loader
 from tools.torch_utils import set_seed
 import torch
 from transformers import AutoProcessor, Pix2StructForConditionalGeneration
