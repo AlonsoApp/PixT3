@@ -1,5 +1,5 @@
 # PixT3: Pixel-based Table-To-Text Generation
-This repository contains code and datasets for the ACL 2024 paper [PixT3: Pixel-based Table-To-Text Generation](https://openreview.net/forum?id=LW5J65cYXL).
+This repository contains code and datasets for the ACL 2024 paper [PixT3: Pixel-based Table-To-Text Generation](https://aclanthology.org/2024.acl-long.364/).
 
 We release PixT3 model checkpoints for the TControl, LControl, and OpenE settings as well as 
 ToTTo, Controlled Logic2Text, and SLC pretraining datasets alongside their corresponding rendered tables
@@ -173,12 +173,20 @@ python3 ./src/dataset/totto/preprocessing/image_generation.py slc
 If you find this project useful, please cite it using the following format
 
 ```
-@inproceedings{
-    alonso2024pixt,
-    title={PixT3: Pixel-based Table-To-Text Generation},
-    author={Iñigo Alonso, Eneko Agirre, Mirella Lapata},
-    booktitle={The 62nd Annual Meeting of the Association for Computational Linguistics},
-    year={2024},
-    url={https://openreview.net/forum?id=LW5J65cYXL}
+@inproceedings{alonso-etal-2024-pixt3,
+    title = "{P}ix{T}3: Pixel-based Table-To-Text Generation",
+    author = "Alonso, I{\~n}igo  and
+      Agirre, Eneko  and
+      Lapata, Mirella",
+    editor = "Ku, Lun-Wei  and
+      Martins, Andre  and
+      Srikumar, Vivek",
+    booktitle = "Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    month = aug,
+    year = "2024",
+    address = "Bangkok, Thailand",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2024.acl-long.364",
+    pages = "6721--6736",
 }
 ```
