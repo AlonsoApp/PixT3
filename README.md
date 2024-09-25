@@ -6,7 +6,7 @@ ToTTo, Controlled Logic2Text, and SLC pretraining datasets alongside their corre
 for each setting. This repository also contains the code to train and evaluate these models.
 
 ## Getting Started
-Clone this GitHub repository, install the requirements, and download all [datasets](https://storage.googleapis.com/pixt3/data.tar.gz) and [models](https://storage.googleapis.com/pixt3/models.tar.gz). 
+Clone this GitHub repository, install the requirements, and download all [datasets and models](https://huggingface.co/datasets/HiTZ/PixT3). 
 This project was developed using **Python=3.11**. 
 
 ```
@@ -16,10 +16,10 @@ pip install -r requirements.txt
 ```
 
 ## Datasets
-Download the ready-to-use datasets [here](https://storage.googleapis.com/pixt3/data.tar.gz).
+Ready-to-use datasets at available on [HuggingFace](https://huggingface.co/datasets/HiTZ/PixT3) 🤗.
 
 ## Model checkpoints
-Download model checkpoints [here](https://storage.googleapis.com/pixt3/models.tar.gz).
+Download model checkpoints [here](https://huggingface.co/datasets/HiTZ/PixT3).
 
 Model names:
 - **PixT3 (TControl):** `pixt3_tcontrol`
@@ -46,12 +46,12 @@ We don't need the SLC pretrained model as the foundational model in TControl as 
 accelerate launch ./src/main_train.py --hf_model_name google/pix2struct-base --image_dir ./data/ToTTo/img/notab_high_00/ --exp_name f4 --lr 0.0001 --epochs 30
 ```
 ### PixT3 (LControl)
-Use the previously pretrained PixT3(SLC) as the initialization model or use the one provided [here](https://storage.googleapis.com/pixt3/models.tar.gz) `pixt3_slc`. 
+Use the previously pretrained PixT3(SLC) as the initialization model or use the one provided [here](https://huggingface.co/datasets/HiTZ/PixT3) `pixt3_slc`. 
 ```
 accelerate launch ./src/main_train.py --hf_model_name ./models/pixt3_slc/checkpoints/3/ --image_dir ./data/ToTTo/img/highlighted_039/ --exp_name i1 --lr 0.0001 --epochs 30
 ```
 ### PixT3 (OpenE)
-Use the previously pretrained PixT3(SLC) as the initialization model or use the one provided [here](https://storage.googleapis.com/pixt3/models.tar.gz) `pixt3_slc`.
+Use the previously pretrained PixT3(SLC) as the initialization model or use the one provided [here](https://huggingface.co/datasets/HiTZ/PixT3) `pixt3_slc`.
 ```
 accelerate launch ./src/main_train.py --hf_model_name ./models/pixt3_slc/checkpoints/3/ --image_dir ./data/ToTTo/img/no_highlighted_039/ --exp_name i3 --lr 0.0001 --epochs 30
 ```
@@ -64,7 +64,7 @@ export PYTHONPATH="$PWD/src"
 ```
 
 ### Flags
-- `--model_to_load_path`: You can use one of the [already trained PixT3 checkpoints](https://storage.googleapis.com/pixt3/models.tar.gz) our you can set the path to any other trained one. 
+- `--model_to_load_path`: You can use one of the [already trained PixT3 checkpoints](https://huggingface.co/datasets/HiTZ/PixT3) our you can set the path to any other trained one. 
 - `--image_dir`: For ToTTo use `./data/ToTTo/img/SETTING_DIR/`. For Logic2Text `./data/ToTTo/img/SETTING_DIR/`.
 - `--dataset_dir`: For ToTTo use `./data/ToTTo/`. For Logic2Text `/data/Logic2Text`.
 - `--mode`: For dev set use `"dev"`. For text set use `"test"`.
