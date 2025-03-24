@@ -9,7 +9,7 @@ lxml==4.9.3 # for totto to hmtl
 transformers==4.48.0
 wikipedia==1.4.0 # for category crawling
 datasets==2.14.3 # for pix2struct demo
-Pillow==10.0.0
+Pillow==10.3.0
 pytictoc==1.5.3
 wandb==0.15.8
 sacrebleu==2.3.1
